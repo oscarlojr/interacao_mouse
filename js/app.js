@@ -14,6 +14,7 @@ const mouse = {
 window.addEventListener('mousemove', function(event){
     mouse.x = event.x;
     mouse.y = event.y;   
+    mouse.radius = 150
     //console.log(mouse.x, mouse.y);
 });
 
@@ -24,7 +25,7 @@ const data = ctx.getImageData(0,0,100,100);
 
 class Particle{
     constructor(x,y){
-        this.x = x + 100;
+        this.x = x + 10;
         this.y = y;
         this.size = 3;
         this.baseX = this.x;
@@ -32,20 +33,36 @@ class Particle{
         this.density = (Math.random()*30)+1;
     }
     draw(){
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = 'red';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
+    }
+    update(){
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        let forceDirectionX = dx / distance;
+        let forceDirectionY = dy / distance;
+        let maxDistance = mouse.radius;
+        if(distance < 300){
+           this.x += forceDirectionX * 3;      
+           this.y += forceDirectionY * 3;      
+        } else{
+            this.size = 3;
+        }
     }
 }
 
 function init(){
     particleArray = [];
-    /*for(let i = 0; i <10; i++){
-        RET = 1.20.06
-    }*/
-    particleArray.push(new Particle(50,50));
-    particleArray.push(new Particle(80,50));
+    for(let i = 0; i <1000; i++){
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        particleArray.push(new Particle(x,y));
+    }
+    //particleArray.push(new Particle(50,50));
+    //particleArray.push(new Particle(80,50));
 }
 init();
 console.log(particleArray);
@@ -54,6 +71,7 @@ function animate(){
     ctx.clearRect(0,0,canvas.width, canvas.height);
     for (let i = 0; i < particleArray.length; i++){
         particleArray[i].draw();
+        particleArray[i].update();
     }
     requestAnimationFrame(animate);
 }

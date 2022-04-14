@@ -3,12 +3,14 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let particleArray = [];
+let adjustX = 10;
+let adjustY = 10;
 
 //lidar com mouse
 const mouse = {
     x:  null,
     y:  null,
-    radius: 250
+    radius: 100
 }
 
 window.addEventListener('mousemove', function(event){
@@ -17,8 +19,8 @@ window.addEventListener('mousemove', function(event){
 });
 
 ctx.fillStyle = 'white';
-ctx.font = '30px Verdana';
-ctx.fillText('A',0,30);
+ctx.font = '15px Verdana';
+ctx.fillText('OSCAR JR',0,30);
 const textCoordinates = ctx.getImageData(0,0,100,100);
 
 class Particle{
@@ -66,8 +68,10 @@ function init(){
     particleArray = [];
    for(let y = 0, y2 = textCoordinates.height; y < y2; y++ ){
        for (let x = 0, x2 = textCoordinates.width; x < x2; x++){
-           if(textCoordinates.data[1] > 128){
-
+           if(textCoordinates.data[(y * 4 * textCoordinates.width) + (x*4) + 3] > 128){
+                let positionX = x + adjustX;
+                let positionY = y + adjustY;
+                particleArray.push(new Particle(positionX * 10, positionY * 10));
            }
        }
    }
@@ -81,6 +85,27 @@ function animate(){
         particleArray[i].draw();
         particleArray[i].update();
     }
+    connect();
     requestAnimationFrame(animate);
 }
 animate();
+
+function connect(){
+    let opacityValue = 1;
+    for (let a= 0; a < particleArray.length; a++){
+        for (let b = a; b < particleArray.length; b++){
+            //let dx = mouse.x - this.x;
+            //let dy = mouse.y - this.y;
+            //let distance = Math.sqrt(dx * dx + dy * dy);
+            let dx = particleArray[a].x - particleArray[b].x;
+            let dy = particleArray[a].y - particleArray[b].y;
+            let distance =  Math.sqrt(dx * dx + dy * dy);
+            opacityValue = 0.4;  
+            ctx.strokeStyle = 'rgba(255,255,255,' + opacityValue + ')';
+
+            /*opaRatAqu = RAT*/
+            
+            }
+        }
+    }
+}

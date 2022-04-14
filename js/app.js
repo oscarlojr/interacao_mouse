@@ -103,7 +103,12 @@ function connect(){
             opacityValue = 0.4;  
             ctx.strokeStyle = 'rgba(255,255,255,' + opacityValue + ')';
 
-            /*opaRatAqu = RAT*/
+            if(distance < 20){                             
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particleArray[a].x, particleArray[a].y);
+                ctx.lineTo(particleArray[b].x, particleArray[b].y);
+                ctx.stroke();
             
             }
         }

@@ -1,8 +1,4 @@
-# interacao_mouse
- Projeto destinado a criação de animação em site com interação com mouse do usuário
-
-
-# Projeto da mentoria 2ª Semana (LISTA DE TAREFAS)
+# Projeto da mentoria 3ª Semana (Animação com Mouse)
 <p align="center"> Projeto destinado a criação de animação em site com interação com mouse do usuário. Atividade de Mentoria.
 </p>
 
@@ -11,7 +7,7 @@
 </p>
 
  <h1 align="center"> 
-  <img alt="shift_alt" title="#shift_alt" src="./img/lista_tarefas.gif" />
+  <img alt="shift_alt" title="#shift_alt" src="./img/animacao_mouse.gif" />
 </h1>
 
-<p>O que acha de acessar o projeto? </p> <a href="https://oscarlojr.github.io/to_do_list/" target="_blank">Tela Inicial</a>
+<p>O que acha de acessar o projeto? </p> <a href="https://oscarlojr.github.io/interacao_mouse/" target="_blank">Tela Inicial</a>
